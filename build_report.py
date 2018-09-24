@@ -2,9 +2,6 @@ import getopt
 
 from bs4 import BeautifulSoup
 import subprocess
-
-import phraseappdiff
-from apk_info import ApkInfo
 import sys
 import os.path
 
