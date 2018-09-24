@@ -1,42 +1,6 @@
 #!/bin/bash
 
-PACKAGE_NAME=""
-REPO_NAME=""
 REPORT_PATH="report"
-
-# Handle arguments
-while [[ $# > 0 ]]; do
-    key="$1"
-
-    case $key in
-        -h|--help)
-            echo "build-report --package package --repo repo"
-            exit 0
-        ;;
-        --package)
-            shift
-            readonly PACKAGE_NAME="$1"
-        ;;
-        --repo)
-            shift
-            readonly REPO_NAME="$1"
-        ;;
-        *)
-            echo "Unknown option $1"
-            exit 1
-        ;;
-    esac
-    shift
-done
-
-# Validate arguments
-if [[ -z ${PACKAGE_NAME} ]]; then
-    echo "package is empty or invalid."
-    exit 1
-elif [[ -z ${REPO_NAME} ]]; then
-    echo "repo is empty or invalid."
-    exit 1
-fi
 
 mkdir "$REPORT_PATH"
 
