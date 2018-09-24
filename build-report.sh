@@ -47,4 +47,4 @@ echo "Fetching build_report.py"
 curl https://raw.githubusercontent.com/blacklane/zulu-scripts/master/buildreport/build_report.py -o "$REPORT_PATH/build_report.py"
 
 echo "Building report"
-python "$REPORT_PATH/build_report.py" --report=$REPORT_PATH --package=$PACKAGE_NAME --githubtoken=$GITHUB_TOKEN --repo=$REPO_NAME --branch=$BRANCH_NAME --phraseapptoken=$PHRASEAPP_TOKEN
+python "$REPORT_PATH/build_report.py" --report=$REPORT_PATH
