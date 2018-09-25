@@ -134,7 +134,7 @@ def generate_coverage_report():
       # There is a bug in the generated report. An empty redundant column is generated.
       # We fix it by removing basically and add the class name as new column
       if index == 0:
-        item.extract()
+        #item.extract()
 
       # If the test class has failures, paint to red
       if index == 5:
