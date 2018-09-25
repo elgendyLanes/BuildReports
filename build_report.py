@@ -190,7 +190,7 @@ with open(REPORT_PATH + '/build-report.html', 'w+') as file:
   #jacoco-part
   print "Generating coverage test report"
   add_header("Coverage Report")
-  generate_coverage_report()
+  #generate_coverage_report()
 
   print "Build report is generated at " + REPORT_PATH + "/build-report.html"
   write('</body></html>')
