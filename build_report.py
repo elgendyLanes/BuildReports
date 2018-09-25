@@ -188,8 +188,8 @@ with open(REPORT_PATH + '/build-report.html', 'w+') as file:
   generate_unit_tests()
 
   #jacoco-part
-  #print "Generating coverage test report"
-  #add_header("Coverage Report")
+  print "Generating coverage test report"
+  add_header("Coverage Report")
   #generate_coverage_report()
 
   print "Build report is generated at " + REPORT_PATH + "/build-report.html"
