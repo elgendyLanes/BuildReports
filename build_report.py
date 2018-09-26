@@ -123,7 +123,7 @@ def generate_coverage_report():
   for tr in head_tr_tags:
     head_td_tag = tr.find_all('td')
     for h in head_td_tag:
-        h.wrap(soup.new_tag('th',style="background-color:yellow; padding-right:10px"))
+        h.wrap(soup.new_tag('th',style="background-color:brown; padding-right:10px"))
         h.insert_after(str(h.string))
         h.extract()
 
@@ -134,8 +134,8 @@ def generate_coverage_report():
     # 1 : Test count
     # 3 : Ignored test count
 
-    redStyle = "width:{WIDTH}; height:{HEIGHT}; background:red; margin-right:-4px; float:left"
-    greenStyle = "width:{WIDTH}; height:{HEIGHT}; background:blue; float:left"
+    redStyle = "width:{WIDTH}; height:{HEIGHT}; background-color:red; margin-right:-4px; float:left"
+    greenStyle = "width:{WIDTH}; height:{HEIGHT}; background-color:blue; float:left"
     for index, item in enumerate(body_td_tag):
       if (index == 1) or (index == 3):
           imageTags = item.find_all('img')
