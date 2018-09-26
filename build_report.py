@@ -123,7 +123,7 @@ def generate_coverage_report():
   for tr in head_tr_tags:
     head_td_tag = tr.find_all('td')
     for h in head_td_tag:
-        h.wrap(soup.new_tag('th',style="background-color:red; padding-right:10px"))
+        h.wrap(soup.new_tag('th',style="background-color:#E0E0E0; padding-right:10px"))
         h.insert_after(str(h.string))
         h.extract()
 
