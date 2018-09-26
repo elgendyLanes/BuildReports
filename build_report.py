@@ -123,7 +123,7 @@ def generate_coverage_report():
   for tr in head_tr_tags:
     head_td_tag = tr.find_all('td')
     for h in head_td_tag:
-        h.wrap(soup.new_tag('th',style="background-color:#E0E0E0; padding-right:10px"))
+        h.wrap(soup.new_tag('th',style="background-color:yellow; padding-right:10px"))
         h.insert_after(str(h.string))
         h.extract()
 
@@ -134,8 +134,10 @@ def generate_coverage_report():
     # 1 : Test count
     # 3 : Ignored test count
 
-    redStyle = "width:{WIDTH}; height:{HEIGHT}; background:linear-gradient(#FF1D1D, #FF4A4A, #FF7D7D, #FFA0A0, #FFACAC, #FFA6A6, #FF8C8C, #FF5D5D, #FF2C2C);margin-right:-4px; float:left"
-    greenStyle = "width:{WIDTH}; height:{HEIGHT}; background:linear-gradient(#1DB61D, #4AC44A ,#7DD57D, #A0E0A0, #ACE4AC, #A6E2A6,#8CDA8C, #5DCA5D, #2CBB2C); float:left"
+    #redStyle = "width:{WIDTH}; height:{HEIGHT}; background:linear-gradient(#FF1D1D, #FF4A4A, #FF7D7D, #FFA0A0, #FFACAC, #FFA6A6, #FF8C8C, #FF5D5D, #FF2C2C);margin-right:-4px; float:left"
+    #greenStyle = "width:{WIDTH}; height:{HEIGHT}; background:linear-gradient(#1DB61D, #4AC44A ,#7DD57D, #A0E0A0, #ACE4AC, #A6E2A6,#8CDA8C, #5DCA5D, #2CBB2C); float:left"
+    redStyle = "width:{WIDTH}; height:{HEIGHT}; background:red !important; margin-right:-4px; float:left"
+    greenStyle = "width:{WIDTH}; height:{HEIGHT}; background:green !important; float:left"
     for index, item in enumerate(body_td_tag):
       if (index == 1) or (index == 3):
           imageTags = item.find_all('img')
