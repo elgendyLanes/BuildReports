@@ -119,48 +119,46 @@ def generate_coverage_report():
   div_table = soup.find('table', attrs={'id': 'coveragetable'})
   div_table.h2.extract()
 
+  head_tr_tags = div_table.thead.find_all('tr')
+  for tr in head_tr_tags:
+    head_td_tag = tr.find_all('td')
+    for h in head_td_tag:
+        h.wrap(soup.new_tag('th',style="background-color:#E0E0E0; padding-right:10px"))
+        h.insert_after(str(h.string))
+        h.extract()
+
   body_tr_tags = div_table.tbody.find_all('tr')
   for tr in body_tr_tags:
-    body_td_tags = tr.find_all('td')
+    body_td_tag = tr.find_all('td')
 
-    # 0 : Empty column, we will replace it with name
     # 1 : Test count
-    # 2 : Failure test count
     # 3 : Ignored test count
-    # 4 : Duration in second
-    # 5 : Status
 
-    for index, item in enumerate(body_td_tags):
-      # There is a bug in the generated report. An empty redundant column is generated.
-      # We fix it by removing basically and add the class name as new column
-      if index == 0:
-        #item.extract()
+    for index, item in enumerate(body_td_tag):
+      if (index == 1) or (index == 3):
+          imageTags = item.find_all('img')
+          for imageTag in imageTags:
+              if imageTag is not None:
+                  img_width = imageTag.get('width')
+                  img_height = imageTag.get('height')
+                  img_title = imageTag.get('title')
+                  new_tag = soup.new_tag('iframe',
+                        style="background:linear-gradient(#FF1D1D, #FF4A4A, #FF7D7D, #FFA0A0, #FFACAC, #FFA6A6, #FF8C8C, #FF5D5D, #FF2C2C);margin-right:-4px; display:inline",
+                        width=img_width, height=img_height, frameborder="0")
+                  if "greenbar" in imageTag.get('src'):
+                      new_tag = soup.new_tag('iframe',
+                            style="background:linear-gradient(#1DB61D, #4AC44A ,#7DD57D, #A0E0A0, #ACE4AC, #A6E2A6,#8CDA8C, #5DCA5D, #2CBB2C); display:inline",
+                            width=img_width, height=img_height, frameborder="0")
 
-      # If the test class has failures, paint to red
-      if index == 5:
-        fail_count = float(item.string)
-        if fail_count > 0:
-          tr['bgcolor'] = "#ff9999"
-
-      # If the test class has ignoring tests, paint to orange
-      if index == 6:
-        ignore_count = float(item.string)
-        if ignore_count > 0:
-          tr['bgcolor'] = "#ffeb99"
-
-      # If the duration is longer than 1 second, paint to blue
-      if index == 7:
-        duration = float(item.string[:-1])
-        if duration > 1:
-          tr['bgcolor'] = "#ccccff"
+                  new_tag.append(img_title)
+                  item.append(new_tag)
+                  imageTag.replaceWithChildren()
 
   # There is a bug in generated test report html which is class names are not inside <td> tag
   # Remove the links and move them inside a td tag
   links = div_table.find_all('a')
   for a in links:
-    a.wrap(soup.new_tag('td'))
-    a.insert_after(str(a.string))
-    a.extract()
+    a.replaceWithChildren()
 
   write(str(div_table))
 
