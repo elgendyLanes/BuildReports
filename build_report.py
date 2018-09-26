@@ -134,6 +134,8 @@ def generate_coverage_report():
     # 1 : Test count
     # 3 : Ignored test count
 
+    redStyle = "width:{WIDTH}; height:{HEIGHT}; background:linear-gradient(#FF1D1D, #FF4A4A, #FF7D7D, #FFA0A0, #FFACAC, #FFA6A6, #FF8C8C, #FF5D5D, #FF2C2C);margin-right:-4px; float:left"
+    greenStyle = "width:{WIDTH}; height:{HEIGHT}; background:linear-gradient(#1DB61D, #4AC44A ,#7DD57D, #A0E0A0, #ACE4AC, #A6E2A6,#8CDA8C, #5DCA5D, #2CBB2C); float:left"
     for index, item in enumerate(body_td_tag):
       if (index == 1) or (index == 3):
           imageTags = item.find_all('img')
@@ -142,13 +144,9 @@ def generate_coverage_report():
                   img_width = imageTag.get('width')
                   img_height = imageTag.get('height')
                   img_title = imageTag.get('title')
-                  new_tag = soup.new_tag('canvas',
-                        style="background:linear-gradient(#FF1D1D, #FF4A4A, #FF7D7D, #FFA0A0, #FFACAC, #FFA6A6, #FF8C8C, #FF5D5D, #FF2C2C);margin-right:-4px; display:inline",
-                        width=img_width, height=img_height)
+                  new_tag = soup.new_tag('div',style=redStyle.format(WIDTH = img_width, HEIGHT = img_height))
                   if "greenbar" in imageTag.get('src'):
-                      new_tag = soup.new_tag('canvas',
-                            style="background:linear-gradient(#1DB61D, #4AC44A ,#7DD57D, #A0E0A0, #ACE4AC, #A6E2A6,#8CDA8C, #5DCA5D, #2CBB2C); display:inline",
-                            width=img_width, height=img_height)
+                      new_tag = soup.new_tag('div',style=greenStyle.format(WIDTH = img_width, HEIGHT = img_height))
 
                   #new_tag.append(img_title)
                   item.append(new_tag)
