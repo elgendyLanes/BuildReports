@@ -136,8 +136,8 @@ def generate_coverage_report():
 
     #redStyle = "width:{WIDTH}; height:{HEIGHT}; background:linear-gradient(#FF1D1D, #FF4A4A, #FF7D7D, #FFA0A0, #FFACAC, #FFA6A6, #FF8C8C, #FF5D5D, #FF2C2C);margin-right:-4px; float:left"
     #greenStyle = "width:{WIDTH}; height:{HEIGHT}; background:linear-gradient(#1DB61D, #4AC44A ,#7DD57D, #A0E0A0, #ACE4AC, #A6E2A6,#8CDA8C, #5DCA5D, #2CBB2C); float:left"
-    redStyle = "width:{WIDTH}; height:{HEIGHT}; background:red !important; margin-right:-4px; float:left"
-    greenStyle = "width:{WIDTH}; height:{HEIGHT}; background:green !important; float:left"
+    redStyle = "width:{WIDTH}; height:{HEIGHT}; background:red"
+    greenStyle = "width:{WIDTH}; height:{HEIGHT}; background:green"
     for index, item in enumerate(body_td_tag):
       if (index == 1) or (index == 3):
           imageTags = item.find_all('img')
