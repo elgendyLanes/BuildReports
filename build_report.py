@@ -117,7 +117,7 @@ def generate_coverage_report():
 
   # Add test classes
   div_table = soup.find('table', attrs={'id': 'coveragetable'})
-  div_table.h2.extract()
+  div_table.extract()
 
   head_tr_tags = div_table.thead.find_all('tr')
   for tr in head_tr_tags:
