@@ -123,7 +123,7 @@ def generate_coverage_report():
   for tr in head_tr_tags:
     head_td_tag = tr.find_all('td')
     for h in head_td_tag:
-        h.wrap(soup.new_tag('th',style="background-color:brown; padding-right:10px"))
+        h.wrap(soup.new_tag('th',style="background-color:black; padding-right:10px"))
         h.insert_after(str(h.string))
         h.extract()
 
@@ -144,9 +144,11 @@ def generate_coverage_report():
                   img_width = imageTag.get('width')
                   img_height = imageTag.get('height')
                   img_title = imageTag.get('title')
-                  new_tag = soup.new_tag('div',style=redStyle.format(WIDTH = img_width, HEIGHT = img_height))
+                  #new_tag = soup.new_tag('div',style=redStyle.format(WIDTH = img_width, HEIGHT = img_height))
+                  new_tag = soup.new_tag('div',style="width:25; height:10; background-color:red; margin-right:-4px; float:left")
                   if "greenbar" in imageTag.get('src'):
-                      new_tag = soup.new_tag('div',style=greenStyle.format(WIDTH = img_width, HEIGHT = img_height))
+                      #new_tag = soup.new_tag('div',style=greenStyle.format(WIDTH = img_width, HEIGHT = img_height))
+                      new_tag = soup.new_tag('div',style="width:40; height:10; background-color:green; float:left")
 
                   #new_tag.append(img_title)
                   item.append(new_tag)
