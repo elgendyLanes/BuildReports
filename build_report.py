@@ -162,7 +162,6 @@ def generate_coverage_report():
 
   write(str(div_table))
 
-
 if __name__ == '__main__':
   read_args(sys.argv[1:])
 
