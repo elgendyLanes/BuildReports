@@ -123,7 +123,7 @@ def delete_column(index_to_remove, td_count, td_step, div_parent):
           item.extract()
 
 def generate_coverage_report():
-  soup = get_soup("index.html")
+  soup = get_soup(REPORT_PATH + "/coveragetests.html")
 
   #get coverage table
   div_table = soup.find('table', attrs={'id': 'coveragetable'})
