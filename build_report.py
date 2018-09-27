@@ -112,53 +112,55 @@ def generate_unit_tests():
   write(str(div_classes))
 
 
-def generate_coverage_report():
-  soup = get_soup(REPORT_PATH + "/coveragetests.html")
+def delete_column(index_to_remove, td_count, td_step, div_parent):
+  deletedList = list()
+  for i in range(index_to_remove, td_count, td_step):
+      deletedList.append(i)
 
-  # Add test classes
+  td_tags = div_parent.find_all('td')
+  for index, item in enumerate(td_tags):
+      if index in deletedList:
+          item.extract()
+
+def generate_coverage_report():
+  soup = get_soup("index.html")
+
+  #get coverage table
   div_table = soup.find('table', attrs={'id': 'coveragetable'})
   div_table.extract()
 
+  #style table headers
   head_tr_tags = div_table.thead.find_all('tr')
   for tr in head_tr_tags:
     head_td_tag = tr.find_all('td')
-    for h in head_td_tag:
-        h.wrap(soup.new_tag('th',style="background-color:#E0E0E0; padding-right:10px"))
-        h.insert_after(str(h.string))
-        h.extract()
+    for index, header in enumerate(head_td_tag):
+        header.wrap(soup.new_tag('td',style="background-color:#E0E0E0; font-weight:bold; text-align: center; padding-right:20px"))
+        header_title = str(header.string)
+        if index == 2:
+            header_title = "Instructions Cov."
+        elif index == 4:
+            header_title = "Branches Cov."
 
-  body_tr_tags = div_table.tbody.find_all('tr')
-  for tr in body_tr_tags:
-    body_td_tag = tr.find_all('td')
+        header.insert_after(header_title)
+        header.extract()
 
-    # 1 : Test count
-    # 3 : Ignored test count
+  # delete second row ("Missed Instructions")
+  td_count = len(div_table.find_all('td'))
+  td_step = len(div_table.thead.find_all('td'))
+  delete_column(1, td_count, td_step,div_table)
 
-    redStyle = "width:{WIDTH}; height:{HEIGHT}; background:linear-gradient(#FF1D1D, #FF4A4A, #FF7D7D, #FFA0A0, #FFACAC, #FFA6A6, #FF8C8C, #FF5D5D, #FF2C2C);margin-right:-4px; float:left"
-    greenStyle = "width:{WIDTH}; height:{HEIGHT}; background:linear-gradient(#1DB61D, #4AC44A ,#7DD57D, #A0E0A0, #ACE4AC, #A6E2A6,#8CDA8C, #5DCA5D, #2CBB2C); float:left"
-    for index, item in enumerate(body_td_tag):
-      if (index == 1) or (index == 3):
-          imageTags = item.find_all('img')
-          for imageTag in imageTags:
-              if imageTag is not None:
-                  img_width = imageTag.get('width')
-                  img_height = imageTag.get('height')
-                  img_title = imageTag.get('title')
-                  new_tag = soup.new_tag('div',style=redStyle.format(WIDTH = img_width, HEIGHT = img_height))
-                  if "greenbar" in imageTag.get('src'):
-                      new_tag = soup.new_tag('div',style=greenStyle.format(WIDTH = img_width, HEIGHT = img_height))
+  # delete foruth row ("Missed Branches")
+  td_count = len(div_table.find_all('td'))
+  td_step = len(div_table.thead.find_all('td'))
+  delete_column(2, td_count, td_step,div_table)
 
-                  #new_tag.append(img_title)
-                  item.append(new_tag)
-                  imageTag.replaceWithChildren()
-
-  # There is a bug in generated test report html which is class names are not inside <td> tag
-  # Remove the links and move them inside a td tag
+  # remove any href links in the table
   links = div_table.find_all('a')
   for a in links:
     a.replaceWithChildren()
 
   write(str(div_table))
+
 
 if __name__ == '__main__':
   read_args(sys.argv[1:])
