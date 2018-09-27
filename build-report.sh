@@ -7,7 +7,6 @@ mkdir "$REPORT_PATH"
 echo "Copy unit tests report"
 cp app/build/reports/tests/testDebugUnitTest/index.html "$REPORT_PATH/unittests.html"
 
-#jacoco-part
 echo "Copy coverage tests report"
 cp app/build/reports/jacocoTestReport/html/index.html "$REPORT_PATH/coveragetests.html"
 
