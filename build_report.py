@@ -124,7 +124,7 @@ def delete_column(index_to_remove, td_count, td_step, div_parent):
 
 def generate_coverage_report():
 
-  if(os.path.isfile(REPORT_PATH + "/coveragetests.html")):
+  if not os.path.isfile(REPORT_PATH + "/coveragetests.html"):
       return
 
   print "Generating coverage test report"
